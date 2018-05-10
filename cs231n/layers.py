@@ -1,5 +1,6 @@
 from builtins import range
 import numpy as np
+import numpy.ma as ma
 
 
 def affine_forward(x, w, b):
@@ -76,7 +77,7 @@ def relu_forward(x):
     ###########################################################################
     # TODO: Implement the ReLU forward pass.                                  #
     ###########################################################################
-    pass
+    out = np.maximum(0, x)
     ###########################################################################
     #                             END OF YOUR CODE                            #
     ###########################################################################
@@ -99,6 +100,8 @@ def relu_backward(dout, cache):
     ###########################################################################
     # TODO: Implement the ReLU backward pass.                                 #
     ###########################################################################
+    max_mask = np.ma.MaskedArray(x<=0)
+    dx = ma.MaskedArray(dout,mask=max_mask, fill_value=0).filled()
     pass
     ###########################################################################
     #                             END OF YOUR CODE                            #
